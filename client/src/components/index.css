@@ -1,0 +1,12 @@
+.title {
+  font-weight: 500;
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  background: #0e153b;
+  padding: 8px;
+}
+
+.campos {
+  text-align: center;
+}
