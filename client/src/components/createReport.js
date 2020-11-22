@@ -1,18 +1,19 @@
 import Axios from "axios";
 import React, { Component } from "react";
 import { setErrors } from "./setErrors";
+import {FormGroup,Jumbotron, Label,Input, Col, Container, Row} from "reactstrap"
 
-export default class createReport extends Component {
+export default class formV extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      elaboracion: "",
-      inicio: "",
-      fin: "",
-      estudiante: "",
-      institucion: "",
-      horas: "",
-      estado: "",
+      Proyecto: "",
+      Empresa: "",
+      Datos: "",
+      Actividades: "",
+      Avances: "",
+      Dificultades: "",
+      Comentarios: "",
       errors: {},
     };
   }
@@ -25,22 +26,22 @@ export default class createReport extends Component {
   };
 
   validate = (
-    elaboracion,
-    inicio,
-    fin,
-    estudiante,
-    institucion,
-    horas,
-    estado
+    Proyecto,
+    Empresa,
+    Datos,
+    Actividades,
+    Avances,
+    Dificultades,
+    Comentarios
   ) => {
     const errors = setErrors(
-      elaboracion,
-      inicio,
-      fin,
-      estudiante,
-      institucion,
-      horas,
-      estado
+      Proyecto,
+      Empresa,
+      Datos,
+      Actividades,
+      Avances,
+      Dificultades,
+      Comentarios
     );
     this.setState({ errors: errors });
     return Object.values(errors).every((err) => err === "");
@@ -49,46 +50,46 @@ export default class createReport extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const {
-      elaboracion,
-      inicio,
-      fin,
-      estudiante,
-      institucion,
-      horas,
-      estado,
+      Proyecto,
+      Empresa,
+      Datos,
+      Actividades,
+      Avances,
+      Dificultades,
+      Comentarios
     } = this.state;
     if (
       this.validate(
-        elaboracion,
-        inicio,
-        fin,
-        estudiante,
-        institucion,
-        horas,
-        estado
+        Proyecto,
+        Empresa,
+        Datos,
+        Actividades,
+        Avances,
+        Dificultades,
+        Comentarios
       )
     ) {
       const data = {
-        elaboracion: elaboracion,
-        inicio: inicio,
-        fin: fin,
-        estudiante: estudiante,
-        institucion: institucion,
-        horas: horas,
-        estado: estado,
+        Proyecto: Proyecto,
+        Empresa: Empresa,
+        Datos: Datos,
+        Actividades: Actividades,
+        Avances: Avances,
+        Dificultades: Dificultades,
+        Comentarios: Comentarios
       };
       console.log(data);
       Axios.post("http://localhost:5000/posts/add", data).then((res) => {
         if (res.data.success) {
           alert("added");
           this.setState({
-            elaboracion: "",
-            inicio: "",
-            fin: "",
-            estudiante: "",
-            institucion: "",
-            horas: "",
-            estado: "",
+            Proyecto: "",
+            Empresa: "",
+            Datos: "",
+            Actividades: "",
+            Avances: "",
+            Dificultades: "",
+            Comentarios: ""
           });
         }
       });
@@ -96,132 +97,120 @@ export default class createReport extends Component {
   };
   render() {
     return (
-      <div className="container m-5">
-        <form className="needs-validation" noValidate>
-          <div className="form-group row">
-            <label className="col-sm-2 col-form-label">
-              Fecha de elaboracion
-            </label>
-            <div className="col-md-6">
-              <input
-                type="text"
-                className="form-control"
-                name="elaboracion"
-                value={this.state.elaboracion}
-                onChange={this.handleInputChange}
-              />
-              {this.state.errors.elaboracion && (
-                <div className="text-danger">
-                  {this.state.errors.elaboracion}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-sm-2 col-form-label">Fecha de inicio</label>
-            <div className="col-md-6">
-              <input
-                type="text"
-                className="form-control"
-                name="inicio"
-                value={this.state.inicio}
-                onChange={this.handleInputChange}
-              />
-              {this.state.errors.inicio && (
-                <div className="text-danger">{this.state.errors.inicio}</div>
-              )}
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-sm-2 col-form-label">
-              Fecha de finalisacion
-            </label>
-            <div className="col-md-6">
-              <input
-                type="text"
-                className="form-control"
-                name="fin"
-                value={this.state.fin}
-                onChange={this.handleInputChange}
-              />
-              {this.state.errors.fin && (
-                <div className="text-danger">{this.state.errors.fin}</div>
-              )}
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-sm-2 col-form-label">Estudiante</label>
-            <div className="col-md-6">
-              <input
-                type="text"
-                className="form-control"
-                name="estudiante"
-                value={this.state.estudiante}
-                onChange={this.handleInputChange}
-              />
-              {this.state.errors.estudiante && (
-                <div className="text-danger">
-                  {this.state.errors.estudiante}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-sm-2 col-form-label">institucion</label>
-            <div className="col-md-6">
-              <input
-                type="text"
-                className="form-control"
-                name="institucion"
-                value={this.state.institucion}
-                onChange={this.handleInputChange}
-              />
-              {this.state.errors.institucion && (
-                <div className="text-danger">
-                  {this.state.errors.institucion}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-sm-2 col-form-label">Estado</label>
-            <div className="col-md-6">
-              <input
-                type="text"
-                className="form-control"
-                name="estado"
-                value={this.state.estado}
-                onChange={this.handleInputChange}
-              />
-              {this.state.errors.estado && (
-                <div className="text-danger">{this.state.errors.estado}</div>
-              )}
-            </div>
-          </div>
-          <div className="form-group row">
-            <label className="col-sm-2 col-form-label">horas</label>
-            <div className="col-md-6">
-              <input
-                type="text"
-                className="form-control"
-                name="horas"
-                value={this.state.horas}
-                onChange={this.handleInputChange}
-              />
-              {this.state.errors.horas && (
-                <div className="text-danger">{this.state.errors.horas}</div>
-              )}
-            </div>
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={this.onSubmit}
-          >
-            Registrar
-          </button>
-        </form>
-      </div>
+          <Container>
+            <Jumbotron>
+            <FormGroup row >
+                <Label style={styles.azul} className ="text-white" sm={12} >Reporte de actividades</Label>
+            </FormGroup>
+
+            <FormGroup row>
+                <Label  for="Proyecto" className="text-left" sm={2}>Proyecto</Label>
+                <Col sm={10}>
+                    <Input type="text" className="form-control" name="Proyecto" id="idProyecto"
+                     placeholder="" value={this.state.Proyecto} onChange={this.handleInputChange}/>
+                     {this.state.errors.Proyecto && (
+                        <div className="text-danger">
+                            {this.state.errors.Proyecto}
+                        </div> )}
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="Empresa" className="text-left" sm={2}>Empresa</Label>
+                <Col sm={10}>
+                    <Input type="text" className="form-control" name="Empresa" id="idEmpresa" placeholder=""
+                    placeholder="" value={this.state.Empresa} onChange={this.handleInputChange}/>
+                    {this.state.errors.Empresa && (
+                        <div className="text-danger">
+                            {this.state.errors.Empresa}
+                        </div> )}
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="Datos" className="text-left" sm={2}>Datos de contacto de la empresa</Label>
+                <Col sm={10}>
+                    <Input type="text" className="form-control" name="Datos" id="idDatos" placeholder=""
+                    placeholder="" value={this.state.Datos} onChange={this.handleInputChange}/>
+                    {this.state.errors.Datos && (
+                        <div className="text-danger">
+                            {this.state.errors.Datos}
+                        </div> )}
+                </Col>
+            </FormGroup>
+
+            <FormGroup row>
+                <Label style={styles.azul} className ="text-white" sm={12} >Reporte</Label>
+            </FormGroup>
+
+            <FormGroup row>
+                <Label for="Actividades" className="text-left" sm={2}>Descripción de las actividades</Label>
+                <Col sm={10}>
+                    <Input type="text" className="form-control" name="Actividades" id="idActividades" placeholder=""
+                    placeholder="" value={this.state.Actividades} onChange={this.handleInputChange}/>
+                    {this.state.errors.Actividades && (
+                        <div className="text-danger">
+                            {this.state.errors.Actividades}
+                        </div> )}
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="Avances" className="text-left" sm={2}>Avances de las actividades</Label>
+                <Col sm={10}>
+                    <Input type="text" className="form-control" name="Avances" id="idAvances" placeholder=""
+                    placeholder="" value={this.state.Avances} onChange={this.handleInputChange}/>
+                    {this.state.errors.Avances && (
+                        <div className="text-danger">
+                            {this.state.errors.Avances}
+                        </div> )}
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="Dificultades" className="text-left" sm={2}>Dificultades presentadas</Label>
+                <Col sm={10}>
+                    <Input type="text" className="form-control" name="Dificultades" id="idDificultades" placeholder=""
+                    placeholder="" value={this.state.Dificultades} onChange={this.handleInputChange}/>
+                    {this.state.errors.Dificultades && (
+                        <div className="text-danger">
+                            {this.state.errors.Dificultades}
+                        </div> )}
+                </Col>
+            </FormGroup>
+            <FormGroup row>
+                <Label for="Comentarios" className="text-left" sm={2}>Comentarios para el asesor</Label>
+                <Col sm={10}>
+                    <Input type="text" className="form-control" name="Comentarios" id="idComentarios" placeholder=""
+                    placeholder="" value={this.state.Comentarios} onChange={this.handleInputChange}/>
+                    {this.state.errors.Comentarios && (
+                        <div className="text-danger">
+                            {this.state.errors.Comentarios}
+                        </div> )}
+                </Col>
+            </FormGroup>
+            <Row >            
+            <Col sm={9}>
+            <button type="submit" style = {styles.btnCustom} className="btn text-center text-white"
+                    onClick={this.onSubmit} > Enviar</button>
+            </Col>
+            <Col>
+            <button type="button" style = {styles.btnCustom} className="btn text-center text-white"> Cancelar</button>
+            </Col>
+            </Row>  
+            </Jumbotron>
+        </Container>
     );
+  }
+}
+
+const styles ={
+  azul:{
+      backgroundColor: "#0E153B",
+      borderRadius: 20,
+      fontSize: 26,
+  },
+  btnCustom: {
+      position: "absolute",
+      width: 120,
+      height: 40,
+      backgroundColor: "#0E153B",
+      borderRadius: 14, 
   }
 }
